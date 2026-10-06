@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Портфолио — Python Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0b18;
+  --bg2: #13102a;
+  --bg3: #1a1635;
+  --surface: #1e1a3a;
+  --surface2: #251f4a;
+  --purple: #a855f7;
+  --purple-dim: #7c3aed;
+  --violet: #8b5cf6;
+  --neon: #c084fc;
+  --neon-glow: rgba(168,85,247,0.35);
+  --text: #e8e4f8;
+  --text2: #a59ec8;
+  --text3: #6b6390;
+  --border: rgba(139,92,246,0.2);
+  --border2: rgba(139,92,246,0.4);
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* GRID BG */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(139,92,246,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139,92,246,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container { max-width: 860px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(13,11,24,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 0;
+}
+nav .container { display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: var(--mono); font-size: 14px; color: var(--neon); letter-spacing: 0.05em; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { font-size: 13px; color: var(--text2); text-decoration: none; transition: color 0.2s; letter-spacing: 0.03em; }
+.nav-links a:hover { color: var(--neon); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 7rem 0 4rem;
+}
+.hero-inner { width: 100%; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 12px; color: var(--neon);
+  border: 1px solid var(--border2);
+  padding: 5px 14px; border-radius: 100px;
+  margin-bottom: 2rem;
+  letter-spacing: 0.08em;
+}
+.hero-badge::before {
+  content: '';
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--neon);
+  box-shadow: 0 0 8px var(--neon);
+  animation: blink 2s ease infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+h1 {
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+.h1-accent {
+  background: linear-gradient(90deg, var(--purple), var(--neon));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-role {
+  font-size: 1.1rem;
+  color: var(--text2);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+.hero-desc {
+  font-size: 1rem;
+  color: var(--text2);
+  max-width: 540px;
+  margin-bottom: 2.5rem;
+  line-height: 1.75;
+}
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary {
+  background: var(--purple-dim);
+  color: #fff;
+  box-shadow: 0 0 24px rgba(124,58,237,0.4);
+}
+.btn-primary:hover { background: var(--purple); box-shadow: 0 0 32px rgba(168,85,247,0.5); transform: translateY(-1px); }
+.btn-outline {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border2);
+}
+.btn-outline:hover { color: var(--neon); border-color: var(--neon); background: rgba(168,85,247,0.06); }
+
+.hero-scroll {
+  margin-top: 5rem;
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 11px; color: var(--text3);
+  letter-spacing: 0.1em;
+}
+.hero-scroll::before {
+  content: '';
+  display: block;
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--border2));
+}
+
+/* SECTIONS */
+section { padding: 6rem 0; }
+
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--purple);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-eyebrow::after {
+  content: '';
+  flex: 1; max-width: 60px;
+  height: 1px;
+  background: var(--border2);
+}
+h2 {
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3rem;
+  letter-spacing: -0.02em;
+}
+
+/* SKILLS */
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.skill-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.skill-block:hover { border-color: var(--border2); box-shadow: 0 0 20px rgba(139,92,246,0.1); }
+.skill-block-title {
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--purple);
+  margin-bottom: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: rgba(139,92,246,0.1);
+  color: var(--neon);
+  border: 1px solid rgba(139,92,246,0.25);
+}
+.tag-dim {
+  color: var(--text2);
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.08);
+}
+.tag-amber {
+  color: #fbbf24;
+  background: rgba(251,191,36,0.08);
+  border-color: rgba(251,191,36,0.2);
+}
+
+/* PROJECTS */
+.projects-list { display: flex; flex-direction: column; gap: 1.25rem; }
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--purple-dim), var(--neon));
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.project-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(124,58,237,0.15); }
+.project-card:hover::before { opacity: 1; }
+.project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 8px; }
+.project-title { font-size: 1rem; font-weight: 600; color: var(--text); }
+.project-link {
+  font-family: var(--mono); font-size: 12px; color: var(--purple); text-decoration: none;
+  display: flex; align-items: center; gap: 4px; white-space: nowrap;
+  transition: color 0.2s;
+}
+.project-link:hover { color: var(--neon); }
+.project-stack { font-family: var(--mono); font-size: 12px; color: var(--text3); margin-bottom: 10px; }
+.project-desc { font-size: 14px; color: var(--text2); line-height: 1.65; margin-bottom: 12px; }
+
+/* EXPERIENCE */
+.exp-item {
+  display: grid; grid-template-columns: 160px 1fr; gap: 2rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.exp-item:last-child { border-bottom: none; }
+.exp-period {
+  font-family: var(--mono); font-size: 12px; color: var(--text3);
+  padding-top: 4px; line-height: 1.5;
+}
+.exp-duration {
+  display: inline-block; margin-top: 6px;
+  font-size: 11px; color: var(--purple);
+  background: rgba(139,92,246,0.1);
+  border: 1px solid var(--border);
+  padding: 2px 8px; border-radius: 4px;
+}
+.exp-title { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.exp-company { font-size: 14px; color: var(--purple); margin-bottom: 10px; }
+.exp-points { list-style: none; }
+.exp-points li {
+  font-size: 14px; color: var(--text2); padding: 3px 0; padding-left: 18px; position: relative;
+}
+.exp-points li::before {
+  content: '–'; position: absolute; left: 0; color: var(--purple-dim);
+}
+
+/* ML BLOCK */
+.ml-card {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 0 40px rgba(139,92,246,0.12);
+  position: relative; overflow: hidden;
+}
+.ml-card::after {
+  content: 'ML';
+  position: absolute; right: 2rem; top: 50%; transform: translateY(-50%);
+  font-family: var(--mono); font-size: 80px; font-weight: 600;
+  color: rgba(139,92,246,0.06); letter-spacing: -0.05em; pointer-events: none;
+}
+.ml-label { font-family: var(--mono); font-size: 11px; color: var(--neon); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.ml-title { font-size: 1.4rem; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+.ml-desc { font-size: 14px; color: var(--text2); line-height: 1.7; max-width: 480px; margin-bottom: 1.25rem; }
+
+/* EDUCATION */
+.edu-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+}
+.edu-degree { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.edu-spec { font-size: 14px; color: var(--text2); }
+.edu-year { font-family: var(--mono); font-size: 13px; color: var(--purple); white-space: nowrap; }
+
+/* CONTACT */
+.contact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.contact-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.contact-item:hover { border-color: var(--border2); background: var(--surface2); }
+.contact-label { font-size: 11px; font-family: var(--mono); color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.contact-val { font-size: 14px; color: var(--neon); font-weight: 500; }
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text3);
+}
+
+/* FADE IN ANIMATION */
+.fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+
+@media(max-width:640px) {
+  .skills-grid { grid-template-columns: 1fr; }
+  .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+  .edu-card { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="nav-logo">dev.portfolio</div>
+    <ul class="nav-links">
+      <li><a href="#skills">Навыки</a></li>
+      <li><a href="#projects">Проекты</a></li>
+      <li><a href="#experience">Опыт</a></li>
+      <li><a href="#ml">ML</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-badge">open to work · junior / middle</div>
+      <h1>Роман<br><span class="h1-accent">Деревянко</span></h1>
+      <p class="hero-role">Python Developer &nbsp;·&nbsp; Backend &amp; Automation &nbsp;·&nbsp; Aspiring ML Engineer</p>
+      <p class="hero-desc">
+        Пишу асинхронные боты, REST API и парсеры данных. Имею коммерческий опыт в IT. Целенаправленно двигаюсь в сторону Machine Learning — scikit-learn, PyTorch.
+      </p>
+      <div class="hero-cta">
+        <a href="https://github.com/Br0-Tt1n" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          GitHub
+        </a>
+        <a href="https://t.me/@Q_Br0_Q" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.92c-.12.56-.46.7-.93.43l-2.56-1.89-1.24 1.19c-.14.13-.26.24-.52.24l.19-2.62 4.82-4.36c.21-.19-.05-.29-.32-.1l-5.95 3.75-2.57-.8c-.56-.17-.57-.56.12-.83l10.03-3.87c.46-.17.87.11.71.94z"/></svg>
+          Telegram
+        </a>
+        <a href="mailto:dervroman12@gmail.com" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          Email
+        </a>
+      </div>
+      <div class="hero-scroll">scroll down</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-eyebrow">технический стек</div>
+      <h2>Навыки</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-block fade-in">
+        <div class="skill-block-title">Основной стек</div>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">asyncio</span>
+          <span class="tag">Flask</span>
+          <span class="tag">SQLAlchemy</span>
+          <span class="tag">aiogram</span>
+        </div>
+      </div>
+      <div class="skill-block fade-in">
+        <div class="skill-block-title">Данные / парсинг</div>
+        <div class="tags">
+          <span class="tag">Scrapy</span>
+          <span class="tag">BeautifulSoup</span>
+          <span class="tag">requests</span>
+          <span class="tag">JSON</span>
+        </div>
+      </div>
+      <div class="skill-block fade-in">
+        <div class="skill-block-title">ML — в изучении</div>
+        <div class="tags">
+          <span class="tag tag-amber">scikit-learn</span>
+          <span class="tag tag-amber">PyTorch</span>
+          <span class="tag tag-amber">NumPy</span>
+          <span class="tag tag-amber">pandas</span>
+          <span class="tag tag-amber">Matplotlib</span>
+        </div>
+      </div>
+      <div class="skill-block fade-in">
+        <div class="skill-block-title">Дополнительно</div>
+        <div class="tags">
+          <span class="tag tag-dim">JavaScript</span>
+          <span class="tag tag-dim">HTML / CSS</span>
+          <span class="tag tag-dim">C#</span>
+          <span class="tag tag-dim">1С:8</span>
+          <span class="tag tag-dim">tkinter</span>
+          <span class="tag tag-dim">Git</span>
+          <span class="tag tag-dim">Linux</span>
+          <span class="tag tag-dim">SQL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-eyebrow">pet-проекты</div>
+      <h2>Проекты</h2>
+    </div>
+    <div class="projects-list">
+
+      <div class="project-card fade-in">
+        <div class="project-top">
+          <div class="project-title">Telegram-бот [AnimeTelegramBot]</div>
+          <a href="https://github.com/Br0-Tt1n/AnimeTelegramBot" class="project-link">GitHub →</a>
+        </div>
+        <div class="project-stack">aiogram · asyncio · SQLAlchemy · PostgreSQL</div>
+        <div class="project-desc">Асинхронный бот с FSM-логикой состояний, системой inline-кнопок и подключением к базе данных через SQLAlchemy ORM. Реализована обработка команд и callback-запросов.</div>
+        <div class="tags">
+          <span class="tag">aiogram</span><span class="tag">asyncio</span><span class="tag">SQLAlchemy</span><span class="tag tag-dim">PostgreSQL</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-top">
+          <div class="project-title">Flask веб-приложение [Robserg]</div>
+          <a href="https://github.com//Br0-Tt1n/Robserg" class="project-link">GitHub →</a>
+        </div>
+        <div class="project-stack">Flask · SQLAlchemy · Jinja2 · REST API</div>
+        <div class="project-desc">Веб-приложение с аутентификацией пользователей и серверным рендерингом шаблонов. Маршрутизация Blueprint, работа с сессиями и хранение данных через ORM.</div>
+        <div class="tags">
+          <span class="tag">Flask</span><span class="tag">SQLAlchemy</span><span class="tag tag-dim">Jinja2</span><span class="tag tag-dim">SQLite</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-top">
+          <div class="project-title">ИИ Ассистент [VoiceAssistant]</div>
+          <a href="https://github.com/Br0-Tt1n/VoiceAssistant" class="project-link">GitHub →</a>
+        </div>
+        <div class="project-stack">Vosk · Silero TTS · FastAPI · Raspberry Pi 4 · Zigbee · Wake-on-LAN</div>
+        <div class="project-desc"> Кастомное wake-word обнаружение («Мицу») через Vosk — работает offline, без отправки данных на сторонние серверы.
+            Распознавание речи на русском языке через Vosk STT и синтез ответов через Silero TTS
+        Интеграция с умным домом: управление Zigbee-устройствами, RGB-освещением и проектором через локальный API. Wake-on-LAN: голосовое включение ПК по команде из любой точки сети
+        </div>
+        <div class="tags">
+          <span class="tag">Vosk</span><span class="tag tag-dim">Silero</span><span class="tag tag-dim">FastAPI</span><span class="tag tag-dim">TTS</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-eyebrow">карьера</div>
+      <h2>Опыт работы</h2>
+    </div>
+    <div class="fade-in">
+      <div class="exp-item">
+        <div class="exp-period">
+          Апрель 2025 –<br>Июнь 2026
+          <div><span class="exp-duration">1+ год</span></div>
+        </div>
+        <div>
+          <div class="exp-title">Технический специалист 1С</div>
+          <div class="exp-company">[Апогей]</div>
+          <ul class="exp-points">
+            <li>Сопровождение и доработка конфигураций на платформе 1С:8</li>
+            <li>Написание запросов, отчётов и обработок на встроенном языке 1С</li>
+            <li>Техническая поддержка пользователей и интеграция со смежными системами</li>
+            <li>Смежное программирование в коммерческой производственной среде</li>
+          </ul>
+          <div class="tags" style="margin-top:12px">
+            <span class="tag tag-dim">1С:8</span><span class="tag tag-dim">SQL</span><span class="tag tag-dim">техподдержка</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section>
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-eyebrow">образование</div>
+      <h2>Образование</h2>
+    </div>
+    <div class="edu-card fade-in">
+      <div>
+        <div class="edu-degree">[Кубанский Институт Профессионального Образования]</div>
+        <div class="edu-spec">ИСП · Информационные технологии и программирование</div>
+      </div>
+      <div class="edu-year">2022 – 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- ML VECTOR -->
+<section id="ml">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-eyebrow">куда двигаюсь</div>
+      <h2>Вектор развития</h2>
+    </div>
+    <div class="ml-card fade-in">
+      <div class="ml-label">target position</div>
+      <div class="ml-title">ML Engineer</div>
+      <div class="ml-desc">
+        Изучаю классический ML через scikit-learn и строю нейросети на PyTorch. Цель — объединить опыт backend-разработки с навыками построения и деплоя моделей. В планах: Kaggle-соревнования и первый production ML-проект.
+      </div>
+      <div class="tags">
+        <span class="tag tag-amber">scikit-learn</span>
+        <span class="tag tag-amber">PyTorch</span>
+        <span class="tag tag-amber">NumPy</span>
+        <span class="tag tag-amber">pandas</span>
+        <span class="tag tag-amber">Kaggle</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-eyebrow">связь</div>
+      <h2>Контакты</h2>
+    </div>
+    <div class="contact-grid fade-in">
+      <a href="https://github.com/Br0-Tt1n" class="contact-item">
+        <div class="contact-label">GitHub</div>
+        <div class="contact-val">github.com/Br0-Tt1n</div>
+      </a>
+      <a href="https://t.me/@Q_Br0_Q" class="contact-item">
+        <div class="contact-label">Telegram</div>
+        <div class="contact-val">@Q_Br0_Q</div>
+      </a>
+      <a href="mailto:dervroman12@mail.ru" class="contact-item">
+        <div class="contact-label">Email</div>
+        <div class="contact-val">dervroman12@mail.ru</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <span style="color:var(--purple)">©</span> 2026 · Деревянко Роман · Python Developer
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if(e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
